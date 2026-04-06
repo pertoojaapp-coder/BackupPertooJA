@@ -723,9 +723,11 @@
       left: 14px;
       display: flex;
       gap: 8px;
+      flex-wrap: wrap;
+      z-index: 2;
     }
 
-    .badge-verified, .badge-destaque {
+    .badge-verified, .badge-destaque, .badge-status {
       background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(6px);
       padding: 5px 12px;
@@ -740,6 +742,26 @@
 
     .badge-verified { background: var(--secondary); }
     .badge-destaque { background: #f39c12; }
+    .badge-status.confiavel { background: #2ecc71; }
+    .badge-status.analise { background: #f39c12; }
+    .badge-status.suspeito { background: #e74c3c; }
+
+    /* Selo de nível (ouro/prata/bronze) */
+    .nivel-selo {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      padding: 3px 8px;
+      border-radius: 30px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: white;
+    }
+    .nivel-selo.ouro { background: #f1c40f; color: #7d6608; }
+    .nivel-selo.prata { background: #bdc3c7; color: #2c3e50; }
+    .nivel-selo.bronze { background: #cd7f32; color: white; }
 
     .card-content {
       padding: 16px;
@@ -1049,6 +1071,130 @@
       font-weight: 700;
     }
 
+    /* ========== MODAL "NOS CONHEÇA" ========== */
+    .modal-conheca {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    .modal-conheca-content {
+      background: var(--white);
+      max-width: 90%;
+      width: 500px;
+      max-height: 85%;
+      border-radius: 32px;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+      animation: fadeUp 0.3s ease-out;
+      box-shadow: var(--shadow-lg);
+    }
+    .modal-conheca-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .modal-conheca-content::-webkit-scrollbar-track {
+      background: var(--gray-light);
+    }
+    .modal-conheca-content::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 10px;
+    }
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+    .close-modal:hover {
+      transform: scale(1.1);
+      color: var(--primary-dark);
+    }
+    .modal-img-top {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 20px;
+    }
+    .modal-conheca-content h2 {
+      color: var(--secondary);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    .modal-conheca-content p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 12px;
+      color: var(--text-dark);
+    }
+    .modal-conheca-content strong {
+      color: var(--primary-dark);
+    }
+    .instagram-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f5f5f5;
+      padding: 10px 18px;
+      border-radius: 60px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: all 0.2s ease;
+      border: 1px solid #e0e0e0;
+    }
+    .instagram-link:hover {
+      transform: translateY(-2px);
+      background: #e0e0e0;
+    }
+    .instagram-icon {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    /* ========== BOTÃO NOS CONHEÇA ========== */
+    .btn-nos-conheca {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 60px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-nos-conheca:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .btn-nos-conheca:active {
+      transform: scale(0.97);
+    }
+    .btn-nos-conheca img {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+    }
+
     /* ========== RESPONSIVIDADE ========== */
     @media (max-width: 768px) {
       .btn, .btn-wpp, .btn-secondary, .btn-cadastre-wpp {
@@ -1171,6 +1317,38 @@
   <button class="nav-item" data-tab="perfil"><i class="material-icons">person</i><span>Sobre Nós</span></button>
 </nav>
 
+<!-- MODAL "NOS CONHEÇA" (NOVO) -->
+<div id="modalNosConheca" class="modal-conheca">
+  <div class="modal-conheca-content">
+    <span class="close-modal">&times;</span>
+    <img class="modal-img-top" src="https://drive.google.com/uc?export=view&id=1lj7RJYN9vOtsvW6XAkP7v7smMVGohqHS" alt="PertooJA" onerror="this.src='https://placehold.co/600x200/2ECC71/white?text=PertooJA'">
+    <h2>Sobre o PertooJA</h2>
+    <p>Você é um desenvolvedor experiente responsável por evoluir um aplicativo mobile já existente chamado "PertooJA".</p>
+    <p><strong>IMPORTANTE:</strong><br>
+    - NÃO alterar o design atual<br>
+    - NÃO remover funcionalidades existentes<br>
+    - NÃO refatorar agressivamente o código atual<br>
+    - NÃO quebrar o que já está funcionando</p>
+    <p>Seu papel é apenas IMPLEMENTAR melhorias e NOVAS FUNCIONALIDADES de forma incremental e segura.</p>
+    <p><strong>CONTEXTO DO APP:</strong><br>
+    O PertooJA é um aplicativo de comércio local com foco em CONFIANÇA e VALIDAÇÃO de estabelecimentos reais.</p>
+    <p>Ele não é um marketplace tradicional. Seu diferencial é garantir que os comércios realmente existem, ajudando usuários a evitarem golpes.</p>
+    <p><strong>REGRAS TÉCNICAS:</strong><br>
+    - Backend inexistente ou muito simples<br>
+    - Priorizar soluções no frontend<br>
+    - Utilizar JSON, Firebase simples ou APIs externas<br>
+    - Código deve ser modular e desacoplado<br>
+    - Evitar dependências complexas</p>
+    <p><strong>OBJETIVO:</strong><br>
+    Adicionar valor ao app sem aumentar complexidade desnecessária.</p>
+    
+    <a href="#" target="_blank" id="instagramLinkModal" class="instagram-link">
+      <img class="instagram-icon" src="https://drive.google.com/uc?export=view&id=1-ti50kYBJykUqimEBy_13-SGoN2x-P0O" alt="Instagram" onerror="this.src='https://img.icons8.com/color/48/instagram-new--v1.png'">
+      <span>Siga-nos no Instagram</span>
+    </a>
+  </div>
+</div>
+
 <script>
   function getGoogleDriveImageUrl(fileId) {
     if (!fileId) return null;
@@ -1190,7 +1368,7 @@
     "Valentina Figueiredo", "Varadouro", "Varjão"
   ];
 
-  // ========== COMÉRCIOS COM IMAGENS ==========
+  // ========== COMÉRCIOS COM IMAGENS E NOVOS CAMPOS (nivel, verificadoEm, telefone, status, imagens) ==========
   const comercios = [
     {
       id: 1,
@@ -1198,23 +1376,16 @@
       categoria: "Serviços",
       imagem: "https://cdn6.campograndenews.com.br/uploads/noticias/2022/09/19/c0a95beb4b636a8ba2a9b89ecf3d99e2143a3b1b.jpg",
       whatsapp: "558389124525",
+      telefone: "83389124525",
       verificado: true,
       destaque: true,
       bairro: "Bancários",
       endereco: "Óticas Day Bancários João Pessoa PB",
-      descricao: "Na Óticas Day, você encontra o equilíbrio perfeito entre estilo, qualidade e preço. Óculos de grau e solares modernos, com atendimento especializado para cuidar da sua visão com confiança."
-    },
-    {
-      id: 3,
-      nome: "Mil Grau Pizzas",
-      categoria: "Lanches",
-      imagem: "https://drive.google.com/uc?export=view&id=1Le1kZWIGgaWq8BHsYOpAAUFuUxJ_q071",
-      whatsapp: "558399970675",
-      verificado: true,
-      destaque: true,
-      bairro: "Valentina Figueiredo",
-      endereco: "Mecânica Rápida, Valentina João Pessoa PB",
-      descricao: "Ingredientes frescos, sabor inconfundível."
+      descricao: "Na Óticas Day, você encontra o equilíbrio perfeito entre estilo, qualidade e preço. Óculos de grau e solares modernos, com atendimento especializado para cuidar da sua visão com confiança.",
+      nivel: "ouro",
+      verificadoEm: "15/03/2025",
+      status: "confiavel",
+      imagens: []
     },
     {
       id: 2,
@@ -1222,11 +1393,16 @@
       categoria: "Farmácia",
       imagem: "https://www.safol.com.br/storage/app/uploads/public/1a9/cea/93b/thumb__800_0_0_0_auto.webp",
       whatsapp: "5583777777777",
+      telefone: "83377777777",
       verificado: true,
       destaque: true,
       bairro: "Centro",
       endereco: "Farmácia Popular Centro João Pessoa PB",
-      descricao: "Medicamentos essenciais a preços acessíveis e atendimento rápido."
+      descricao: "Medicamentos essenciais a preços acessíveis e atendimento rápido.",
+      nivel: "prata",
+      verificadoEm: "20/02/2025",
+      status: "confiavel",
+      imagens: []
     },
     {
       id: 3,
@@ -1234,11 +1410,16 @@
       categoria: "Serviços",
       imagem: "https://isoflex.com.br/wp-content/uploads/2023/11/gestao-de-oficina-mecanica-como-melhorar.jpg",
       whatsapp: "5583666666666",
+      telefone: "83366666666",
       verificado: true,
       destaque: true,
       bairro: "Jaguaribe",
       endereco: "Mecânica Rápida Jaguaribe João Pessoa PB",
-      descricao: "Revisão, troca de óleo, freios e diagnósticos."
+      descricao: "Revisão, troca de óleo, freios e diagnósticos.",
+      nivel: "bronze",
+      verificadoEm: "10/01/2025",
+      status: "confiavel",
+      imagens: []
     },
     {
       id: 4,
@@ -1246,11 +1427,16 @@
       categoria: "Mercados",
       imagem: "https://merchanplasticos.com.br/wp-content/uploads/2023/03/Caixa-Hortifruti.jpg",
       whatsapp: "5583555555555",
+      telefone: "83355555555",
       verificado: true,
       destaque: true,
       bairro: "Manaíra",
       endereco: "Kasa do Keijo Manaíra João Pessoa PB",
-      descricao: "Hortifrúti orgânico e produtos regionais."
+      descricao: "Hortifrúti orgânico e produtos regionais.",
+      nivel: "ouro",
+      verificadoEm: "01/03/2025",
+      status: "confiavel",
+      imagens: []
     },
     {
       id: 5,
@@ -1258,11 +1444,16 @@
       categoria: "Serviços",
       imagem: "https://www.inewsbr.com/wp-content/uploads/2022/05/Woof.png",
       whatsapp: "5583444444444",
+      telefone: "",
       verificado: false,
       destaque: false,
       bairro: "Cabo Branco",
       endereco: "Pet Shop Amigo Cabo Branco João Pessoa PB",
-      descricao: "Banho, tosa, rações premium e acessórios."
+      descricao: "Banho, tosa, rações premium e acessórios.",
+      nivel: "",
+      verificadoEm: "",
+      status: "analise",
+      imagens: []
     },
     {
       id: 6,
@@ -1270,11 +1461,84 @@
       categoria: "Lanches",
       imagem: "https://diariodocomercio.com.br/wp-content/uploads/2024/05/vendas-dia-do-hamburguer-aumentar-belo-horizonte.jpg",
       whatsapp: "5583333333333",
+      telefone: "83333333333",
       verificado: true,
       destaque: false,
       bairro: "Tambauzinho",
       endereco: "Lanchonete Sabor Caseiro Tambauzinho João Pessoa PB",
-      descricao: "Pastéis artesanais, sucos naturais e tapioca."
+      descricao: "Pastéis artesanais, sucos naturais e tapioca.",
+      nivel: "prata",
+      verificadoEm: "05/04/2025",
+      status: "confiavel",
+      imagens: []
+    },
+    {
+      id: 7,
+      nome: "Tiago Barbeiro",
+      categoria: "Barbearia",
+      imagem: "https://images.pexels.com/photos/18702143/pexels-photo-18702143/free-photo-of-assento-banco-cabeleireiro-barbeiro.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+      whatsapp: "83988216584",
+      telefone: "83988216584",
+      verificado: true,
+      destaque: false,
+      bairro: "Gramame",
+      endereco: "Parque Do Sol - Av. Josinaldo Nascimento, 330 - Valentina, João Pessoa - PB, 58000-000",
+      descricao: "Tiago Barbearia é o lugar ideal para quem busca estilo, cuidado e confiança em cada detalhe.",
+      nivel: "ouro",
+      verificadoEm: "12/04/2025",
+      status: "confiavel",
+      imagens: []
+    },
+    {
+      id: 8,
+      nome: "Pastelaria Primeira Opção",
+      categoria: "Lanches",
+      imagem: "https://robustosmaquinas.com.br/wp-content/uploads/2019/01/Como-Montar-Uma-Pastelaria-Simples-Passo-a-Passo.jpg",
+      whatsapp: "83996972377",
+      telefone: "83996972377",
+      verificado: true,
+      destaque: false,
+      bairro: "Gramame",
+      endereco: "Av. João Maria de Araújo, 288-316 - Gramame, João Pessoa - PB, 58033-455",
+      descricao: "Pastelaria Primeira Opção é o destino perfeito para quem ama um pastel crocante, bem recheado e cheio de sabor.",
+      nivel: "prata",
+      verificadoEm: "20/03/2025",
+      status: "confiavel",
+      imagens: []
+    },
+    {
+      id: 9,
+      nome: "ParqueDog",
+      categoria: "Mercado",
+      imagem: "https://media.istockphoto.com/id/1355290974/pt/foto/dog-near-different-variation-of-goods-for-animals.jpg?s=612x612&w=0&k=20&c=CiHp2li69tqpAm1V43aE-520lgXGBgksAk0sSTwq6Hk=",
+      whatsapp: "83993369523",
+      telefone: "83993369523",
+      verificado: true,
+      destaque: false,
+      bairro: "Gramame",
+      endereco: "Av. João Maria de Araújo, 530 - Gramame, João Pessoa - PB, 58067-372",
+      descricao: "O ParqueDog é um petshop que vai além do básico, oferecendo produtos de qualidade e serviços essenciais.",
+      nivel: "bronze",
+      verificadoEm: "01/04/2025",
+      status: "confiavel",
+      imagens: []
+    },
+    {
+      id: 10,
+      nome: "Grelhitus",
+      categoria: "Comida",
+      imagem: "https://reidocupimchurrascaria.com.br/wp-content/uploads/2021/07/0005-1024x1024.jpg.webp",
+      whatsapp: "83987981166",
+      telefone: "83987981166",
+      verificado: true,
+      destaque: false,
+      bairro: "Gramame",
+      endereco: "Av. João Maria de Araújo, 564 - Gramame, João Pessoa - PB, 58067-300",
+      descricao: "A Churrascaria Grelhitus é o lugar ideal para quem busca uma boa carne, ambiente agradável e atendimento de qualidade.",
+      nivel: "ouro",
+      verificadoEm: "10/04/2025",
+      status: "confiavel",
+      imagens: []
     }
   ];
 
@@ -1341,6 +1605,28 @@
   function getDistanciaSimulada() { return (Math.random() * 4.5 + 0.5).toFixed(1) + " km"; }
   function getVisualizacoes() { return Math.floor(Math.random() * 45) + 5; }
 
+  // Função auxiliar para exibir selo de nível
+  function getNivelSelo(nivel) {
+    if (!nivel) return '';
+    const classe = `nivel-selo ${nivel.toLowerCase()}`;
+    let icone = '';
+    if (nivel === 'ouro') icone = '🏆';
+    else if (nivel === 'prata') icone = '🥈';
+    else if (nivel === 'bronze') icone = '🥉';
+    return `<span class="${classe}">${icone} ${nivel.toUpperCase()}</span>`;
+  }
+
+  // Status badge
+  function getStatusBadge(status) {
+    if (!status) return '';
+    let classe = 'badge-status';
+    if (status === 'confiavel') classe += ' confiavel';
+    else if (status === 'analise') classe += ' analise';
+    else if (status === 'suspeito') classe += ' suspeito';
+    let texto = status === 'confiavel' ? '✅ Confiável' : (status === 'analise' ? '⏳ Em análise' : '⚠️ Suspeito');
+    return `<span class="${classe}">${texto}</span>`;
+  }
+
   function renderizarComercios() {
     const filtrados = getComerciosFiltrados();
     if (filtrados.length === 0) { gridContainer.style.display = 'none'; emptyMsg.style.display = 'block'; resultCountSpan.innerText = '0 resultados'; return; }
@@ -1354,8 +1640,20 @@
       let badgesHtml = '';
       if (comercio.verificado) badgesHtml += `<span class="badge-verified"><i class="material-icons" style="font-size:0.8rem;">verified</i> Verificado</span>`;
       if (comercio.destaque) badgesHtml += `<span class="badge-destaque"><i class="material-icons" style="font-size:0.8rem;">local_fire_department</i> Destaque</span>`;
+      // Novos selos
+      if (comercio.nivel) badgesHtml += getNivelSelo(comercio.nivel);
+      if (comercio.status) badgesHtml += getStatusBadge(comercio.status);
+      if (comercio.verificadoEm) badgesHtml += `<span class="badge-verified" style="background:#2c3e50;">📅 Verif. em ${comercio.verificadoEm}</span>`;
+      
       const imagemUrl = getImagemComercio(comercio);
       const mapaLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(comercio.nome + " João Pessoa")}`;
+      
+      // Botão de telefone (se houver)
+      let telButton = '';
+      if (comercio.telefone && comercio.telefone.trim() !== '') {
+        telButton = `<a href="tel:${comercio.telefone}" class="btn btn-secondary" style="flex:1;"><i class="material-icons">phone</i> Ligar</a>`;
+      }
+      
       const card = document.createElement('div');
       card.className = 'card-comercio';
       card.innerHTML = `
@@ -1371,6 +1669,7 @@
               <img class="wpp-icon" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" onerror="this.src='https://img.icons8.com/color/48/whatsapp--v1.png'">
               <span>WhatsApp</span>
             </a>
+            ${telButton}
             <a href="${mapaLink}" target="_blank" class="btn btn-secondary"><i class="material-icons">location_on</i> Ver mapa</a>
             <button class="btn-icon ${isFavorito ? 'favoritado' : ''}" data-id="${comercio.id}"><i class="material-icons">favorite</i></button>
           </div>
@@ -1439,10 +1738,29 @@
     });
   }
 
+  // MODAL "NOS CONHEÇA"
+  function abrirModalNosConheca() {
+    const modal = document.getElementById('modalNosConheca');
+    if (modal) modal.style.display = 'flex';
+  }
+  function fecharModalNosConheca() {
+    const modal = document.getElementById('modalNosConheca');
+    if (modal) modal.style.display = 'none';
+  }
+
   function renderizarSobreNos() {
     gridContainer.style.display = 'block';
-    gridContainer.innerHTML = `<div class="perfil-container"><div class="perfil-avatar"><i class="material-icons">info</i></div><h3>Sobre Nós</h3><div class="sobre-texto"><p>O <strong>PertooJA</strong> nasceu de uma experiência real — e de um problema cada vez mais comum: a falta de confiança nas compras online com comércios locais.</p><p>Após vivenciar um golpe, surgiu a necessidade de criar algo diferente. <strong>Garantir que o comércio seja real antes mesmo do primeiro contato</strong>.</p><div class="missao-box"><h4>🎯 Nossa Missão</h4><p>Proteger consumidores e valorizar o comércio local legítimo.</p></div><p>👉 <strong>Se está no PertooJA, é porque existe.</strong></p><div class="valores-lista"><li><i class="material-icons">verified</i> Confiança é mais importante que conveniência</li><li><i class="material-icons">security</i> Segurança vem antes da escolha</li><li><i class="material-icons">storefront</i> O comércio local merece ser valorizado</li></div><div class="diferencial-box"><h4>✨ Nosso diferencial</h4><p>Somos uma rede de verificação e confiança.</p></div><p><strong>PertooJA é mais do que um aplicativo:</strong> É uma ferramenta de proteção. É um novo jeito de confiar.</p></div></div>`;
+    gridContainer.innerHTML = `<div class="perfil-container"><div class="perfil-avatar"><i class="material-icons">info</i></div><h3>Sobre Nós</h3><div class="sobre-texto"><p>O <strong>PertooJA</strong> nasceu de uma experiência real — e de um problema cada vez mais comum: a falta de confiança nas compras online com comércios locais.</p><p>Após vivenciar um golpe, surgiu a necessidade de criar algo diferente. <strong>Garantir que o comércio seja real antes mesmo do primeiro contato</strong>.</p><div class="missao-box"><h4>🎯 Nossa Missão</h4><p>Proteger consumidores e valorizar o comércio local legítimo.</p></div><p>👉 <strong>Se está no PertooJA, é porque existe.</strong></p><div class="valores-lista"><li><i class="material-icons">verified</i> Confiança é mais importante que conveniência</li><li><i class="material-icons">security</i> Segurança vem antes da escolha</li><li><i class="material-icons">storefront</i> O comércio local merece ser valorizado</li></div><div class="diferencial-box"><h4>✨ Nosso diferencial</h4><p>Somos uma rede de verificação e confiança.</p></div><p><strong>PertooJA é mais do que um aplicativo:</strong> É uma ferramenta de proteção. É um novo jeito de confiar.</p></div>
+    <button class="btn-nos-conheca" id="btnNosConheca">
+      <img src="https://drive.google.com/uc?export=view&id=1lj7RJYN9vOtsvW6XAkP7v7smMVGohqHS" alt="ícone" style="width:24px; height:24px; border-radius:8px;">
+      Nos conheça
+    </button>
+    </div>`;
     emptyMsg.style.display = 'none'; resultCountSpan.innerText = ''; listTitle.innerText = 'Sobre Nós';
+    
+    // Adiciona evento ao botão
+    const btn = document.getElementById('btnNosConheca');
+    if (btn) btn.addEventListener('click', abrirModalNosConheca);
   }
 
   function renderizarCadastreSection() {
@@ -1500,15 +1818,41 @@
     document.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', () => { activeTab = item.dataset.tab; document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active')); item.classList.add('active'); renderizar(); });
     });
+    // Fechar modal ao clicar no X ou fora
+    const modal = document.getElementById('modalNosConheca');
+    if (modal) {
+      const closeSpan = modal.querySelector('.close-modal');
+      closeSpan.addEventListener('click', fecharModalNosConheca);
+      modal.addEventListener('click', (e) => { if (e.target === modal) fecharModalNosConheca(); });
+    }
+    // Link do Instagram (pode ser atualizado depois)
+    const instaLink = document.getElementById('instagramLinkModal');
+    if (instaLink) instaLink.href = 'https://www.instagram.com/seu_perfil_aqui'; // substituir pelo link real
   }
 
   const promocoes = [
-    { nome: "Hambúrguer + Batata", preco: "R$ 19,90", imagem: "https://placehold.co/600x400/FFB347/white?text=Hambúrguer", tag: "🔥 Hoje", urgencia: "⏱️ Só hoje" },
-    { nome: "Pizza Grande (8 fatias)", preco: "R$ 29,90", imagem: "https://placehold.co/600x400/FF6B6B/white?text=Pizza", tag: "🎉 Promoção", urgencia: "⏱️ Até 18h" },
-    { nome: "Refrigerante 2L", preco: "R$ 7,90", imagem: "https://placehold.co/600x400/4ECDC4/white?text=Refri", tag: "💸 Oferta", urgencia: "⏱️ Estoque limitado" },
-    { nome: "Combo Acai 500ml", preco: "R$ 12,90", imagem: "https://placehold.co/600x400/9B59B6/white?text=Açaí", tag: "🥣 Do dia", urgencia: "⏱️ Até 20h" },
-    { nome: "Coxinha + Suco", preco: "R$ 9,90", imagem: "https://placehold.co/600x400/E67E22/white?text=Coxinha", tag: "⭐ Lanche Rápido", urgencia: "⏱️ Só hoje" }
-  ];
+  {
+    "nome": "Pizza + Refrigerante",
+    "preco": "16",
+    "imagem": "https://files.deliveryturbo.com.br/stores/img__13/cd08e85c4d3bee94d79e9432362ae69a.jpg",
+    "tag": "🔥Hoje",
+    "urgencia": "Até às 23:00"
+  },
+  {
+    "nome": "Todos os burgers com 20% OFF!",
+    "preco": "15",
+    "imagem": "https://blog.biglar.com.br/wp-content/uploads/2024/08/iStock-1398630614.jpg",
+    "tag": "🍔🔥 PROMOÇÃO IMPERDÍVEL!",
+    "urgencia": ""
+  },
+  {
+    "nome": "Yakisoba grande com preço especial HOJE!",
+    "preco": "20",
+    "imagem": "https://receitatodahora.com.br/wp-content/uploads/2021/09/yakisoba-scaled-1200x900.jpg",
+    "tag": "🚨🍔 Últimas horas de promoção! Não perde!",
+    "urgencia": ""
+  }
+];
   const carouselPromo = document.getElementById('carouselPromocoes');
   let autoplayInterval, isAutoPlaying = true;
   function startAutoplay() { if (autoplayInterval) clearInterval(autoplayInterval); if (!carouselPromo) return; autoplayInterval = setInterval(() => { if (!isAutoPlaying) return; const cardWidth = 260, gap = 16, maxScroll = carouselPromo.scrollWidth - carouselPromo.clientWidth; let newLeft = carouselPromo.scrollLeft + (cardWidth + gap); if (newLeft >= maxScroll - 5) newLeft = 0; carouselPromo.scrollTo({ left: newLeft, behavior: 'smooth' }); }, 4000); document.getElementById('autoplayStatus').innerText = '▶ Rodando'; }
